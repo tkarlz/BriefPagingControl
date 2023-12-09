@@ -15,12 +15,12 @@ Supports iOS14 or later.
 
 ### Swift Package Manager
 
-1. In Xcode, select “File” → “Add Packages...”
+1. In Xcode, select “File” → “Add Package Dependencies...”
 1. Enter https://github.com/tkarlz/BriefPagingControl.git
 
 or you can add the following dependency to your `Package.swift`:
 ```swift
-.package(url: "https://github.com/tkarlz/BriefPagingControl.git", .upToNextMajor(from: "1.0")),
+.package(url: "https://github.com/tkarlz/BriefPagingControl.git", .upToNextMajor(from: "1.0.1")),
 ```
 
 ## Usage

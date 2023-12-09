@@ -68,22 +68,26 @@ public struct BriefPagingControl: View {
                 .offset(x: adjustedOffset)
                 .frame(width: (indicatorSize + spacing) * CGFloat(numberOfMainIndicators.rawValue + 4 + 1))
                 .onChange(of: currentPage) { [previousPage = currentPage] nextPage in
+                    let step = (nextPage - previousPage).magnitude
+                    
                     withAnimation(animation) {
-                        if previousPage < nextPage {
-                            if displayedPosition + 1 > numberOfMainIndicators.halfValue {
-                                activePage += 1
-                                adjustedOffset -= (indicatorSize + spacing)
+                        (0..<step).forEach { _ in
+                            if previousPage < nextPage {
+                                if displayedPosition + 1 > numberOfMainIndicators.halfValue {
+                                    activePage += 1
+                                    adjustedOffset -= (indicatorSize + spacing)
+                                } else {
+                                    activePage += 1
+                                    displayedPosition += 1
+                                }
                             } else {
-                                activePage += 1
-                                displayedPosition += 1
-                            }
-                        } else {
-                            if displayedPosition - 1 < -numberOfMainIndicators.halfValue {
-                                activePage -= 1
-                                adjustedOffset += (indicatorSize + spacing)
-                            } else {
-                                activePage -= 1
-                                displayedPosition -= 1
+                                if displayedPosition - 1 < -numberOfMainIndicators.halfValue {
+                                    activePage -= 1
+                                    adjustedOffset += (indicatorSize + spacing)
+                                } else {
+                                    activePage -= 1
+                                    displayedPosition -= 1
+                                }
                             }
                         }
                     }
@@ -99,11 +103,15 @@ public struct BriefPagingControl: View {
                 }
                 .padding(.horizontal, (indicatorSize + spacing) / 2)
                 .onChange(of: currentPage) { [previousPage = currentPage] nextPage in
+                    let step = (nextPage - previousPage).magnitude
+                    
                     withAnimation(animation) {
-                        if previousPage < nextPage {
-                            activePage += 1
-                        } else {
-                            activePage -= 1
+                        (0..<step).forEach { _ in
+                            if previousPage < nextPage {
+                                activePage += 1
+                            } else {
+                                activePage -= 1
+                            }
                         }
                     }
                 }
